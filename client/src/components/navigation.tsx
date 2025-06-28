@@ -28,7 +28,7 @@ export function Navigation() {
             <Link href="/chatbot">
               <Button 
                 variant={location === "/chatbot" ? "default" : "ghost"}
-                className="flex items-center space-x-2"
+                className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100"
               >
                 <MessageCircle size={16} />
                 <span>Chatbot</span>
@@ -37,7 +37,7 @@ export function Navigation() {
             <Link href="/market">
               <Button 
                 variant={location === "/market" ? "default" : "ghost"}
-                className="flex items-center space-x-2"
+                className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100"
               >
                 <TrendingUp size={16} />
                 <span>Market</span>
@@ -46,7 +46,7 @@ export function Navigation() {
             <Link href="/weather">
               <Button 
                 variant={location === "/weather" ? "default" : "ghost"}
-                className="flex items-center space-x-2"
+                className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100"
               >
                 <CloudSun size={16} />
                 <span>Weather</span>
