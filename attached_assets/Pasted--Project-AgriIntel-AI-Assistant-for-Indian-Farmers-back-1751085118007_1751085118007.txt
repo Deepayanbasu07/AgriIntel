@@ -1,0 +1,155 @@
+# Project: AgriIntel – AI Assistant for Indian Farmers
+
+# =============================
+# 📁 backend/main.py
+# =============================
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from routes import chat, market, weather
+
+app = FastAPI()
+
+# Enable CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Include routes
+app.include_router(chat.router, prefix="/chat")
+app.include_router(market.router, prefix="/market-prices")
+app.include_router(weather.router, prefix="/weather-advice")
+
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to AgriIntel API"}
+
+# =============================
+# 📁 backend/routes/chat.py
+# =============================
+from fastapi import APIRouter, Request
+from models.schemas import ChatRequest, ChatResponse
+from utils.llm_handler import query_llm
+
+router = APIRouter()
+
+@router.post("/")
+def get_chat_response(req: ChatRequest) -> ChatResponse:
+    response = query_llm(req.query)
+    return ChatResponse(reply=response)
+
+# =============================
+# 📁 backend/routes/market.py
+# =============================
+from fastapi import APIRouter
+from utils.price_data import get_crop_prices
+
+router = APIRouter()
+
+@router.get("/")
+def get_prices(crop: str, state: str):
+    return get_crop_prices(crop, state)
+
+# =============================
+# 📁 backend/routes/weather.py
+# =============================
+from fastapi import APIRouter
+from utils.weather_logic import get_weather_advice
+
+router = APIRouter()
+
+@router.get("/")
+def get_advice(city: str):
+    return get_weather_advice(city)
+
+# =============================
+# 📁 backend/models/schemas.py
+# =============================
+from pydantic import BaseModel
+
+class ChatRequest(BaseModel):
+    query: str
+
+class ChatResponse(BaseModel):
+    reply: str
+
+# =============================
+# 📁 backend/utils/llm_handler.py
+# =============================
+import requests
+
+def query_llm(prompt: str) -> str:
+    url = "http://localhost:11434/api/generate"
+    payload = {
+        "model": "llama3",
+        "prompt": prompt,
+        "stream": False
+    }
+    try:
+        response = requests.post(url, json=payload)
+        return response.json().get("response", "No response")
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+# =============================
+# 📁 backend/utils/price_data.py
+# =============================
+price_data = {
+    "wheat": {
+        "Punjab": [{"mandi": "Ludhiana", "price": 2200}],
+        "UP": [{"mandi": "Kanpur", "price": 2100}]
+    },
+    "rice": {
+        "West Bengal": [{"mandi": "Kolkata", "price": 2500}]
+    }
+}
+
+def get_crop_prices(crop: str, state: str):
+    return price_data.get(crop.lower(), {}).get(state, ["No data available"])
+
+# =============================
+# 📁 backend/utils/weather_logic.py
+# =============================
+weather_advice = {
+    "Delhi": "Expect light rain. Ideal for sowing bajra.",
+    "Mumbai": "Heavy rain expected. Delay fertilizer application.",
+    "Jaipur": "Dry weather. Good for harvesting wheat."
+}
+
+def get_weather_advice(city: str):
+    return {"city": city, "advice": weather_advice.get(city, "No specific advice available.")}
+
+# =============================
+# 📁 backend/requirements.txt
+# =============================
+fastapi
+uvicorn
+pydantic
+requests
+
+# =============================
+# 📁 frontend/index.html
+# =============================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriIntel</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-green-50 text-gray-800">
+    <div class="text-center mt-10">
+        <h1 class="text-4xl font-bold">AgriIntel</h1>
+        <p class="mt-2">Empowering Indian Farmers with AI</p>
+        <div class="mt-6 space-x-4">
+            <a href="chatbot.html" class="bg-green-600 text-white px-4 py-2 rounded">Chatbot</a>
+            <a href="market.html" class="bg-yellow-500 text-white px-4 py-2 rounded">Market Prices</a>
+            <a href="weather.html" class="bg-blue-500 text-white px-4 py-2 rounded">Weather Advice</a>
+        </div>
+    </div>
+</body>
+</html>

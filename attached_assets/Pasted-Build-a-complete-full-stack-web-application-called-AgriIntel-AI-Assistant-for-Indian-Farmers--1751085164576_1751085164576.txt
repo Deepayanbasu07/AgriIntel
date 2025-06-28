@@ -1,0 +1,85 @@
+Build a complete full-stack web application called **AgriIntel – AI Assistant for Indian Farmers**. It should have:
+
+---
+
+🔧 Features:
+
+1. **Chatbot Page**:
+   - A chat interface that sends user messages to a local LLM API (Ollama running locally).
+   - FastAPI endpoint: POST `/chat`
+   - Tailwind HTML page: `chatbot.html`
+
+2. **Crop Market Price Insights**:
+   - Select crop and state to view current mandi prices (mock data is okay).
+   - FastAPI endpoint: GET `/market-prices?crop=...&state=...`
+   - Frontend: `market.html` with JS + Tailwind CSS table or chart
+
+3. **Weather-based Advice**:
+   - User enters city, gets weather-based recommendation (mock logic is fine).
+   - FastAPI endpoint: GET `/weather-advice?city=...`
+   - Frontend: `weather.html` with input + response card
+
+---
+
+💻 Backend (FastAPI):
+- Organized using routers: `/routes/chat.py`, `/routes/market.py`, `/routes/weather.py`
+- Models in `/models/schemas.py`
+- Utility logic in `/utils/`:
+  - `llm_handler.py` for calling Ollama (`http://localhost:11434`)
+  - `price_data.py` with sample crop price dict
+  - `weather_logic.py` with sample advice by city
+- CORS enabled for all origins
+- Use `pydantic` for request/response validation
+- `requirements.txt`: fastapi, uvicorn, pydantic, requests
+
+---
+
+🌐 Frontend (HTML + Tailwind CSS + JavaScript):
+- Responsive design, minimal JS with `fetch` for API calls
+- Pages:
+  - `index.html`: Welcome page with buttons linking to chatbot, market, and weather pages
+  - `chatbot.html`: Chat UI with input and response area
+  - `market.html`: Dropdowns to select crop + state and view price data
+  - `weather.html`: City input field and advice result box
+
+---
+
+📂 Folder Structure:
+
+agriintel/
+├── backend/
+│ ├── main.py
+│ ├── routes/
+│ │ ├── chat.py
+│ │ ├── market.py
+│ │ └── weather.py
+│ ├── models/
+│ │ └── schemas.py
+│ ├── utils/
+│ │ ├── llm_handler.py
+│ │ ├── price_data.py
+│ │ └── weather_logic.py
+│ └── requirements.txt
+├── frontend/
+│ ├── index.html
+│ ├── chatbot.html
+│ ├── market.html
+│ ├── weather.html
+│ └── css/
+│ └── tailwind.css (CDN ok)
+
+yaml
+Copy
+Edit
+
+---
+
+📌 Notes:
+- Assume Ollama is already running locally (e.g., `llama3` model).
+- Prefer simplicity: no React or database needed.
+- Mock data is fine, just show structure clearly.
+- Each frontend page should make live `fetch()` calls to FastAPI endpoints and update results dynamically.
+
+---
+
+Please generate all files and code. Start with backend if needed.

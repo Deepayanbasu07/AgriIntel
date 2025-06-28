@@ -1,0 +1,81 @@
+Build a complete full-stack web application called AgriIntel – AI Assistant for Indian Farmers. The app should provide:
+
+Chatbot-based Crop Advisory using a local LLM API (Ollama) via FastAPI.
+
+Live Market Price Insights for selected crops across Indian states using sample or scraped data.
+
+Weather-Based Recommendation System using weather API (mock if not available).
+
+Multilingual Support for at least English and Hindi.
+
+Backend:
+Use FastAPI for the backend.
+
+Define the following API routes:
+
+/chat: Accepts user message and returns LLM response.
+
+/market-prices: Returns crop prices by crop name and state.
+
+/weather-advice: Accepts user location and returns farming advice based on mock weather.
+
+Integrate with Ollama (assume running locally) to query models like llama3 or mistral via HTTP.
+
+Use FAISS or a simple in-memory data store to simulate retrieval-based advice using context.
+
+Use pydantic models for all request and response schemas.
+
+Frontend:
+Use HTML + Tailwind CSS + JavaScript (no frameworks like React).
+
+Pages:
+
+index.html: Landing page with intro and links to chatbot, market insights, and weather tools.
+
+chatbot.html: Chat interface with user input and response display.
+
+market.html: UI to select crop and state → show price data in a table/chart.
+
+weather.html: Input city/state → get farming recommendation based on mock weather data.
+
+Make responsive layout using Tailwind.
+
+Use JavaScript to call backend APIs asynchronously (fetch) and update DOM accordingly.
+
+Folder Structure:
+pgsql
+Copy
+Edit
+agriintel/
+├── backend/
+│   ├── main.py
+│   ├── routes/
+│   │   ├── chat.py
+│   │   ├── market.py
+│   │   └── weather.py
+│   ├── models/
+│   │   ├── schemas.py
+│   ├── utils/
+│   │   ├── llm_handler.py
+│   │   ├── price_data.py
+│   │   └── weather_logic.py
+├── frontend/
+│   ├── index.html
+│   ├── chatbot.html
+│   ├── market.html
+│   ├── weather.html
+│   └── css/
+│       └── tailwind.css
+├── requirements.txt
+└── README.md
+Mock Data:
+Use a Python dict or JSON file for sample crop prices (crop, state, mandi, price/kg).
+
+Use a dictionary or simple logic for weather-based recommendations.
+
+Extra:
+Ensure CORS is enabled.
+
+Provide example curl commands for each API.
+
+Comment code clearly for ease of understanding.
