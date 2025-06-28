@@ -173,10 +173,26 @@ export default function Chatbot() {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => setInputValue("When is the best time to plant rice?")}
+                  onClick={() => setInputValue("When is the best time to plant rice in Punjab?")}
                   disabled={chatMutation.isPending}
                 >
                   Planting time
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setInputValue("My crop leaves are turning yellow, what should I do?")}
+                  disabled={chatMutation.isPending}
+                >
+                  Crop disease
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setInputValue("What crops should I plant this month?")}
+                  disabled={chatMutation.isPending}
+                >
+                  Seasonal crops
                 </Button>
               </div>
             </div>

@@ -13,7 +13,7 @@ export class MemStorage implements IStorage {
   currentId: number;
   
   // Mock crop price data
-  private cropPrices = {
+  private cropPrices: Record<string, Record<string, Array<{ mandi: string; price: number; unit: string }>>> = {
     "wheat": {
       "punjab": [
         { mandi: "Ludhiana", price: 2200, unit: "quintal" },
@@ -69,7 +69,7 @@ export class MemStorage implements IStorage {
   };
 
   // Mock weather advice data
-  private weatherAdvice = {
+  private weatherAdvice: Record<string, { weather: string; advice: string; temperature: number; humidity: number }> = {
     "delhi": {
       weather: "Light rain expected",
       advice: "Ideal conditions for sowing bajra. Avoid fertilizer application during rain.",
@@ -171,7 +171,7 @@ export class MemStorage implements IStorage {
     return {
       crop,
       state,
-      prices: stateData.map(item => ({
+      prices: stateData.map((item: { mandi: string; price: number; unit: string }) => ({
         ...item,
         date: new Date().toISOString().split('T')[0]
       }))

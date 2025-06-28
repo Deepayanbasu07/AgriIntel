@@ -1,0 +1,125 @@
+✅ 1. User Testing Checklist (for Farmers or General Users)
+This checklist ensures all features function smoothly and your app is usable by non-technical users, especially farmers.
+
+🧪 General Usability
+ Can the app load on both mobile and desktop browsers?
+
+ Is the home page understandable to a first-time user?
+
+ Is there a consistent navigation bar or back button to return to home?
+
+💬 AI Chatbot (Crop Advisory)
+ Does the chatbot respond promptly to user queries?
+
+ Are responses useful and easy to understand (non-technical language)?
+
+ Can users ask follow-ups (e.g., “What about maize instead?”)?
+
+ Does the system handle unknown queries gracefully (e.g., “I want to fly to Mars”)?
+
+📊 Market Prices
+ Can the user select crop and state easily (dropdowns or text input)?
+
+ Is data shown in a readable format (table or chart)?
+
+ Are error messages shown if no data is available for the selection?
+
+☁ Weather Advice
+ Is city input easy and forgiving (case-insensitive, typo-tolerant)?
+
+ Does the app show relevant advice based on entered city?
+
+ Does it fail gracefully for unknown cities?
+
+🌐 Multilingual / Accessibility (Optional but Recommended)
+ Is there a way to switch to Hindi or other regional languages?
+
+ Is text large enough to read easily on small screens?
+
+ Are buttons and form elements accessible for touchscreens?
+
+🔐 Basic Technical Validations
+ Are all input fields validated before sending to backend?
+
+ Is CORS properly set to avoid frontend/backend issues during deployment?
+
+ Is the LLM API protected from misuse (e.g., via rate limit or prompt guardrails)?
+
+🚀 2. Deployment Setup (Docker + Hosting)
+Here’s how you can package and deploy the full stack app using Docker.
+
+🐳 Step 1: Backend – Dockerfile (FastAPI + Ollama)
+Dockerfile
+Copy
+Edit
+# backend/Dockerfile
+FROM python:3.10-slim
+
+WORKDIR /app
+COPY ./ ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+EXPOSE 8000
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+🌐 Step 2: Frontend – Serve Static HTML
+You can serve it using Python’s http.server or nginx.
+
+Option A (quick):
+
+bash
+Copy
+Edit
+cd frontend
+python -m http.server 8080
+Option B (Docker):
+
+Dockerfile
+Copy
+Edit
+# frontend/Dockerfile
+FROM nginx:alpine
+COPY ./frontend /usr/share/nginx/html
+EXPOSE 80
+⚙️ Step 3: docker-compose.yml (Optional Full Stack Integration)
+yaml
+Copy
+Edit
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    networks:
+      - agri-net
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    networks:
+      - agri-net
+
+networks:
+  agri-net:
+🧪 Step 4: Run Locally
+bash
+Copy
+Edit
+docker-compose up --build
+Then:
+
+Frontend: http://localhost
+
+Backend API: http://localhost:8000
+
+Ollama: Should be already running on your local machine (http://localhost:11434)
+
+☁️ Hosting Options
+Platform	Supports	Notes
+Replit	Frontend only (best for static HTML)	Use Replit’s web server for frontend, or host backend separately
+Railway	Full-stack (Docker)	Easiest option for deploying both frontend + backend
+Render	Backend + static site	May need build.sh for Tailwind
+Fly.io	FastAPI + persistent	Good for India latency
+GitHub Pages + Backend on Railway	Free + scalable	Split hosting setup

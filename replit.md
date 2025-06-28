@@ -110,7 +110,12 @@ AgriIntel is a full-stack web application designed to help Indian farmers with A
 
 ```
 Changelog:
-- June 28, 2025. Initial setup
+- June 28, 2025: Initial AgriIntel application setup with core features
+- June 28, 2025: Enhanced LLM prompt tuning with specific Indian farming context
+- June 28, 2025: Added price indicators (High/Moderate/Low) to market prices
+- June 28, 2025: Implemented mobile-responsive navigation with hamburger menu
+- June 28, 2025: Added interactive language toggle (EN/Hindi) functionality
+- June 28, 2025: Expanded chatbot quick action buttons for better UX
 ```
 
 ## User Preferences

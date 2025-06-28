@@ -156,6 +156,22 @@ export default function Market() {
                           <TableCell className="font-medium">{price.mandi}</TableCell>
                           <TableCell className="text-[var(--price-amber)] font-bold">
                             ₹{price.price.toLocaleString()}
+                            {/* Price indicator */}
+                            {price.price > 2400 && (
+                              <span className="ml-2 text-xs bg-red-100 text-red-600 px-2 py-1 rounded">
+                                High
+                              </span>
+                            )}
+                            {price.price >= 2000 && price.price <= 2400 && (
+                              <span className="ml-2 text-xs bg-yellow-100 text-yellow-600 px-2 py-1 rounded">
+                                Moderate
+                              </span>
+                            )}
+                            {price.price < 2000 && (
+                              <span className="ml-2 text-xs bg-green-100 text-green-600 px-2 py-1 rounded">
+                                Low
+                              </span>
+                            )}
                           </TableCell>
                           <TableCell>{price.unit}</TableCell>
                           <TableCell>{price.date || "Today"}</TableCell>
