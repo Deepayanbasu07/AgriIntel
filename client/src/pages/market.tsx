@@ -7,6 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { TrendingUp, AlertCircle, Loader2 } from "lucide-react";
 import { marketApi } from "@/lib/api";
 import type { MarketPriceRequest } from "@shared/schema";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const crops = [
   { value: "wheat", label: "Wheat" },
@@ -26,6 +27,7 @@ const states = [
 ];
 
 export default function Market() {
+  const { t } = useLanguage();
   const [selectedCrop, setSelectedCrop] = useState<string>("");
   const [selectedState, setSelectedState] = useState<string>("");
   const [shouldFetch, setShouldFetch] = useState(false);
@@ -47,9 +49,9 @@ export default function Market() {
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Live Market Prices</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">{t.market.title}</h1>
           <p className="text-xl text-gray-600">
-            Get real-time mandi prices across different states
+            {t.market.subtitle}
           </p>
         </div>
 

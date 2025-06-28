@@ -1,12 +1,12 @@
-import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Sprout, MessageCircle, TrendingUp, CloudSun, Menu } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export function Navigation() {
   const [location] = useLocation();
-  const [language, setLanguage] = useState<"en" | "hi">("en");
+  const { language, setLanguage, t } = useLanguage();
 
   return (
     <nav className="bg-white shadow-lg border-b-4 border-[var(--agri-primary)]">
@@ -18,8 +18,8 @@ export function Navigation() {
                 <Sprout className="text-white text-xl" size={20} />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-[var(--agri-primary)]">AgriIntel</h1>
-                <p className="text-xs text-gray-600">AI Assistant for Farmers</p>
+                <h1 className="text-xl font-bold text-[var(--agri-primary)]">{t.nav.title}</h1>
+                <p className="text-xs text-gray-600">{t.nav.subtitle}</p>
               </div>
             </div>
           </Link>
@@ -31,7 +31,7 @@ export function Navigation() {
                 className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100"
               >
                 <MessageCircle size={16} />
-                <span>Chatbot</span>
+                <span>{t.nav.chatbot}</span>
               </Button>
             </Link>
             <Link href="/market">
@@ -40,7 +40,7 @@ export function Navigation() {
                 className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100"
               >
                 <TrendingUp size={16} />
-                <span>Market</span>
+                <span>{t.nav.market}</span>
               </Button>
             </Link>
             <Link href="/weather">
@@ -49,7 +49,7 @@ export function Navigation() {
                 className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100"
               >
                 <CloudSun size={16} />
-                <span>Weather</span>
+                <span>{t.nav.weather}</span>
               </Button>
             </Link>
           </div>
@@ -70,7 +70,7 @@ export function Navigation() {
                       className="w-full justify-start"
                     >
                       <MessageCircle size={16} className="mr-2" />
-                      Chatbot
+                      {t.nav.chatbot}
                     </Button>
                   </Link>
                   <Link href="/market">
@@ -79,7 +79,7 @@ export function Navigation() {
                       className="w-full justify-start"
                     >
                       <TrendingUp size={16} className="mr-2" />
-                      Market
+                      {t.nav.market}
                     </Button>
                   </Link>
                   <Link href="/weather">
@@ -88,12 +88,12 @@ export function Navigation() {
                       className="w-full justify-start"
                     >
                       <CloudSun size={16} className="mr-2" />
-                      Weather
+                      {t.nav.weather}
                     </Button>
                   </Link>
                   
                   <div className="border-t pt-4">
-                    <p className="text-sm text-gray-600 mb-2">Language</p>
+                    <p className="text-sm text-gray-600 mb-2">{t.nav.language}</p>
                     <div className="flex space-x-2">
                       <Button 
                         variant={language === "en" ? "outline" : "ghost"}

@@ -2,18 +2,20 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { MessageCircle, TrendingUp, CloudSun, Brain, Smartphone, Globe, Clock } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Home() {
+  const { t } = useLanguage();
   return (
     <div className="min-h-screen bg-gradient-to-br from-[var(--agri-green-50)] to-green-100">
       {/* Hero Section */}
       <div className="agri-gradient text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Smart Farming with AI
+            {t.home.heroTitle}
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-green-100 max-w-3xl mx-auto">
-            Get expert crop advice, live market prices, and weather recommendations - all powered by artificial intelligence
+            {t.home.heroSubtitle}
           </p>
           
           {/* Main CTA Buttons */}
@@ -21,7 +23,7 @@ export default function Home() {
             <Link href="/chatbot">
               <Button className="bg-white text-[var(--agri-primary)] px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all transform hover:scale-105 shadow-lg min-w-44">
                 <MessageCircle className="mr-2" size={20} />
-                Start Chatbot
+                {t.home.startChatbot}
               </Button>
             </Link>
             <Link href="/market">
@@ -30,7 +32,7 @@ export default function Home() {
                 className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-[var(--agri-primary)] transition-all transform hover:scale-105 min-w-44"
               >
                 <TrendingUp className="mr-2" size={20} />
-                Market Prices
+                {t.home.marketPrices}
               </Button>
             </Link>
           </div>
@@ -39,15 +41,15 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="text-center">
               <div className="text-3xl font-bold">50K+</div>
-              <div className="text-green-200">Farmers Helped</div>
+              <div className="text-green-200">{t.home.farmersHelped}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold">24/7</div>
-              <div className="text-green-200">AI Support</div>
+              <div className="text-green-200">{t.home.aiSupport}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold">Live</div>
-              <div className="text-green-200">Market Data</div>
+              <div className="text-green-200">{t.home.liveData}</div>
             </div>
           </div>
         </div>
@@ -58,10 +60,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Comprehensive Farming Solutions
+              {t.home.comprehensiveTitle}
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Access cutting-edge AI technology designed specifically for Indian agriculture
+              {t.home.comprehensiveSubtitle}
             </p>
           </div>
 

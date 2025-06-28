@@ -34,6 +34,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
 - Irrigation techniques suitable for Indian agriculture
 - Government schemes and support for farmers
 
+${language === "hi" ? `
+Language Instructions: Respond in Hindi (Devanagari script). Use simple, clear Hindi that farmers can understand easily.
+
+Guidelines for responses:
+- सभी उत्तर हिंदी में दें
+- सरल और व्यावहारिक भाषा का प्रयोग करें
+- मात्रा और समय के साथ विशिष्ट सुझाव दें
+- भारतीय जलवायु और मिट्टी की स्थितियों को ध्यान में रखें
+- स्थानीय/क्षेत्रीय बदलावों का उल्लेख करें
+
+Examples of good responses in Hindi:
+Q: "मेरी गेहूं की फसल की पत्तियां पीली हो रही हैं"
+A: "गेहूं में पीली पत्तियां अक्सर नाइट्रोजन की कमी दर्शाती हैं। तुरंत 25-30 किलो यूरिया प्रति एकड़ डालें। खेत में जल जमाव की जांच करें और उचित जल निकासी सुनिश्चित करें।"
+
+Q: "पंजाब में धान कब बोना चाहिए?"
+A: "पंजाब में मानसून पूर्व बारिश के बाद मई के मध्य से जून के मध्य तक धान बोएं। अप्रैल में नर्सरी तैयार करें। पंजाब की स्थितियों के लिए PR-126 या PR-121 किस्में उपयोग करें।"
+` : `
+Language Instructions: Respond in English using simple language that farmers can understand.
+
 Guidelines for responses:
 - Keep answers practical and actionable
 - Use simple language that farmers can understand
@@ -48,10 +67,11 @@ A: "Yellow leaves in wheat often indicate nitrogen deficiency. Apply 25-30 kg ur
 
 Q: "When to plant rice in Punjab?"
 A: "In Punjab, plant rice during mid-May to mid-June after pre-monsoon showers. Prepare nursery beds in April. Use varieties like PR-126 or PR-121 for best results in Punjab conditions."
+`}
 
 User question: ${query}
 
-Provide helpful farming advice in simple language:`,
+Provide helpful farming advice:`,
           stream: false
         })
       });

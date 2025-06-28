@@ -8,6 +8,7 @@ import { Send, Bot, User, Loader2 } from "lucide-react";
 import { chatApi } from "@/lib/api";
 import type { ChatRequest } from "@shared/schema";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Message {
   id: string;
@@ -17,11 +18,12 @@ interface Message {
 }
 
 export default function Chatbot() {
+  const { language, t } = useLanguage();
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
       type: "bot",
-      content: "Hello! I'm AgriBot, your AI farming assistant. I can help you with crop management, pest control, fertilizers, irrigation, and farming techniques suitable for Indian conditions. How can I assist you today?",
+      content: t.chatbot.welcomeMessage,
       timestamp: new Date()
     }
   ]);
@@ -63,7 +65,7 @@ export default function Chatbot() {
     
     chatMutation.mutate({
       query: inputValue,
-      language: "en"
+      language: language
     });
 
     setInputValue("");
@@ -83,10 +85,10 @@ export default function Chatbot() {
           <CardHeader className="bg-[var(--agri-primary)] text-white rounded-t-lg">
             <CardTitle className="flex items-center space-x-2">
               <Bot size={24} />
-              <span>AgriBot - AI Farming Assistant</span>
+              <span>{t.chatbot.title}</span>
               <div className="ml-auto flex items-center space-x-2">
                 <div className="w-2 h-2 bg-green-300 rounded-full animate-pulse"></div>
-                <span className="text-sm">Online</span>
+                <span className="text-sm">{t.chatbot.online}</span>
               </div>
             </CardTitle>
           </CardHeader>
@@ -140,7 +142,7 @@ export default function Chatbot() {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Ask about crops, pest control, fertilizers, or farming techniques..."
+                  placeholder={t.chatbot.placeholder}
                   className="flex-1"
                   disabled={chatMutation.isPending}
                 />

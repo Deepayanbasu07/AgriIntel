@@ -7,8 +7,10 @@ import { CloudSun, MapPin, Thermometer, Droplets, Loader2, AlertCircle } from "l
 import { weatherApi } from "@/lib/api";
 import type { WeatherAdviceRequest, WeatherAdviceResponse } from "@shared/schema";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Weather() {
+  const { language, t } = useLanguage();
   const [city, setCity] = useState("");
   const [weatherData, setWeatherData] = useState<WeatherAdviceResponse | null>(null);
   const { toast } = useToast();
@@ -40,7 +42,7 @@ export default function Weather() {
 
     weatherMutation.mutate({
       city: city.trim(),
-      language: "en"
+      language: language
     });
   };
 
@@ -57,9 +59,9 @@ export default function Weather() {
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Weather Advisory</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">{t.weather.title}</h1>
           <p className="text-xl text-gray-600">
-            Get weather-based farming recommendations for your location
+            {t.weather.subtitle}
           </p>
         </div>
 
