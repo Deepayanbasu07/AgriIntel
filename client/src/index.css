@@ -26,6 +26,9 @@
   
   /* AgriIntel custom colors */
   --agri-primary: hsl(122, 39%, 49%);
+  --agri-primary-light: hsl(122, 39%, 60%); /* lighter green */
+  --agri-primary-dark: hsl(122, 39%, 35%); /* darker green */
+  --agri-primary-darker: hsl(122, 39%, 25%); /* even darker green */
   --agri-secondary: hsl(122, 39%, 60%);
   --agri-green-50: hsl(88, 50%, 97%);
   --agri-green-100: hsl(88, 50%, 90%);

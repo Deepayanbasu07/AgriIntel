@@ -80,7 +80,12 @@ Provide helpful farming advice:`,
       
       if (ollamaResponse.ok) {
         const ollamaData = await ollamaResponse.json();
-        reply = ollamaData.response || reply;
+        let rawReply = ollamaData.response || reply;
+        // Clean up leading/trailing quotes and triple quotes
+        rawReply = rawReply.trim().replace(/^['`"\s]+|['`"\s]+$/g, "");
+        // Remove leading/trailing triple quotes if present
+        rawReply = rawReply.replace(/^'''|'''$/g, "");
+        reply = rawReply;
       }
 
       const response: ChatResponse = {

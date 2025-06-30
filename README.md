@@ -1,210 +1,108 @@
 # AgriIntel - AI Assistant for Indian Farmers
 
-A full-stack web application designed to help Indian farmers with AI-powered agricultural assistance. The application provides three main features: an AI chatbot for farming advice, live market price insights for crops, and weather-based farming recommendations.
+![AgriIntel Chatbot UI](attached_assets/agriintel_chatbot_screenshot.png)
+![AgriIntel Market Prices UI](attached_assets/agriintel_market_screenshot.png)
+
+A full-stack web application that empowers Indian farmers with AI-powered agricultural advice, live mandi prices, and weather-based recommendations. The app uses a local LLM (Ollama Llama 3), live web scraping from Agmarknet, and OpenWeatherMap for real-time data.
+
+---
 
 ## Features
+- **AI Chatbot:** Get instant, expert farming advice in English or Hindi using a local LLM (Ollama Llama 3).
+- **Live Market Prices:** Fetches real-time mandi prices for major crops and states by scraping the Agmarknet portal (no API key required).
+- **Weather Advisory:** Provides weather-based farming tips using OpenWeatherMap and LLM-generated advice.
+- **Modern UI:** Responsive, mobile-friendly, and accessible design with sticky input, quick prompts, and beautiful tables.
+- **Multilingual:** Supports both English and Hindi for all major features.
+- **CI/CD:** Automated build and test with GitHub Actions.
 
-- **AI Chatbot**: Get instant expert advice on crop management, pest control, fertilizers, irrigation, and farming techniques
-- **Market Prices**: Track real-time mandi prices across different states
-- **Weather Advisory**: Get weather-based farming recommendations for your location
-- **Multilingual Support**: Complete Hindi and English language support
-- **Mobile Responsive**: Works seamlessly on all devices
+---
+
+## Screenshots
+
+### Chatbot UI
+![Chatbot Screenshot](attached_assets/agriintel_chatbot_screenshot.png)
+
+### Market Prices UI
+![Market Prices Screenshot](attached_assets/agriintel_market_screenshot.png)
+
+---
 
 ## Tech Stack
+- **Frontend:** React 18, TypeScript, Vite, TanStack Query, Wouter, Tailwind CSS, shadcn/ui, Lucide React
+- **Backend:** Node.js, Express, TypeScript, Zod, Ollama Llama 3 (local), Python (Selenium + BeautifulSoup for scraping)
+- **Data:** Agmarknet (scraped), OpenWeatherMap
 
-### Frontend
-- React 18 with TypeScript
-- Vite (build tool)
-- TanStack Query (server state management)
-- Wouter (routing)
-- Tailwind CSS + shadcn/ui components
-- Lucide React icons
+---
 
-### Backend
-- Express.js with TypeScript
-- Ollama LLM integration for AI responses
-- Drizzle ORM (ready for PostgreSQL)
-- Zod for schema validation
+## Setup Instructions
 
-## Project Structure
+### 1. Prerequisites
+- Node.js 18+
+- Python 3.8+
+- Chrome browser (latest)
+- ChromeDriver (matching your Chrome version)
 
-```
-agriintel/
-├── client/                # Frontend application
-│   ├── src/
-│   │   ├── components/    # Reusable UI components
-│   │   ├── contexts/      # React contexts (Language)
-│   │   ├── hooks/         # Custom React hooks
-│   │   ├── lib/           # Utilities and API clients
-│   │   ├── pages/         # Page components
-│   │   ├── App.tsx        # Main app component
-│   │   ├── index.css      # Global styles
-│   │   └── main.tsx       # Entry point
-│   └── index.html
-├── server/                # Backend application
-│   ├── index.ts           # Express server setup
-│   ├── routes.ts          # API route handlers
-│   ├── storage.ts         # Data storage layer
-│   └── vite.ts            # Vite integration
-├── shared/                # Shared types and schemas
-│   └── schema.ts          # Zod schemas and types
-├── package.json           # Dependencies
-├── tsconfig.json          # TypeScript config
-├── vite.config.ts         # Vite configuration
-├── tailwind.config.ts     # Tailwind CSS config
-├── drizzle.config.ts      # Database config
-└── README.md              # This file
-```
-
-## Prerequisites
-
-- Node.js 18+ and npm
-- Ollama running locally (for AI chatbot functionality)
-  - Install from: https://ollama.ai
-  - Pull a model: `ollama pull llama3`
-- PostgreSQL (optional, for production database)
-
-## Installation
-
-1. Clone the repository:
+### 2. Clone the Repository
 ```bash
-git clone <repository-url>
-cd agriintel
+git clone <your-repo-url>
+cd AgriculturalAiHelper
 ```
 
-2. Install dependencies:
+### 3. Install Node.js Dependencies
 ```bash
 npm install
 ```
 
-3. Set up environment variables (optional):
+### 4. Python Environment
+Install required Python packages:
 ```bash
-# Create a .env file for database connection (if using PostgreSQL)
-DATABASE_URL=postgresql://user:password@localhost:5432/agriintel
+pip install selenium beautifulsoup4
 ```
+Download [ChromeDriver](https://storage.googleapis.com/chrome-for-testing-public/138.0.7204.49/win64/chromedriver-win64.zip) and place `chromedriver.exe` in your PATH or update the script path.
 
-## Running Locally
+### 5. Environment Variables
+Create a `.env` file in the project root:
+```
+CROP_PRICE_API_KEY=SCRAPER
+WEATHER_API_KEY=your_openweathermap_api_key
+```
+- Set `CROP_PRICE_API_KEY=SCRAPER` to always use the web scraper for market prices.
+- Get your weather API key from [OpenWeatherMap](https://openweathermap.org/api).
 
-### Development Mode
-
-Start the development server:
+### 6. Start the Application
 ```bash
 npm run dev
 ```
+- The backend and frontend will start.
+- Visit [http://localhost:5173](http://localhost:5173) in your browser.
 
-This will start:
-- Frontend: http://localhost:5000
-- Backend API: http://localhost:5000/api
+---
 
-### Ollama Setup
+## How It Works
+- **Market Prices:**
+  - The frontend calls `/api/market-prices` with crop and state.
+  - The backend runs a Python script (`fetch_market_price.py`) that scrapes Agmarknet for the latest mandi prices and returns them as JSON.
+  - The frontend displays the results in a sortable, color-coded table.
+- **Weather Advisory:**
+  - The frontend calls `/api/weather-advice` with a city name.
+  - The backend fetches weather from OpenWeatherMap and generates a farming tip using Ollama Llama 3.
+- **Chatbot:**
+  - The frontend calls `/api/chat` for farming questions.
+  - The backend uses Ollama Llama 3 to generate expert advice.
 
-1. Install Ollama from https://ollama.ai
-2. Start Ollama service (usually starts automatically)
-3. Pull a model:
-```bash
-ollama pull llama3
-```
-4. Verify it's running:
-```bash
-curl http://localhost:11434/api/tags
-```
-
-### API Endpoints
-
-- `POST /api/chat` - Send chat messages to AI assistant
-- `GET /api/market-prices?crop=wheat&state=punjab` - Get crop prices
-- `GET /api/weather-advice?city=delhi` - Get weather-based advice
-- `GET /api/health` - Health check endpoint
-
-### Testing the Application
-
-1. **Home Page**: Navigate to http://localhost:5000
-2. **Language Switch**: Click "हिं" button to switch to Hindi
-3. **Chatbot**: 
-   - Click "Start Chatbot" or navigate to /chatbot
-   - Type farming questions in English or Hindi
-   - Use quick action buttons for common queries
-4. **Market Prices**:
-   - Navigate to /market
-   - Select crop and state
-   - Click "Get Prices" to view mandi prices
-5. **Weather Advisory**:
-   - Navigate to /weather
-   - Enter city name or use quick select buttons
-   - Get weather-based farming recommendations
-
-## Building for Production
-
-```bash
-# Build the application
-npm run build
-
-# Start production server
-NODE_ENV=production node dist/index.js
-```
-
-## Database Setup (Optional)
-
-To use PostgreSQL instead of in-memory storage:
-
-1. Create database:
-```sql
-CREATE DATABASE agriintel;
-```
-
-2. Run migrations:
-```bash
-npm run db:generate
-npm run db:migrate
-```
-
-## Mock Data
-
-The application includes mock data for:
-- **Crops**: Wheat, Rice, Sugarcane, Cotton
-- **States**: Punjab, Uttar Pradesh, West Bengal, Maharashtra, Gujarat, etc.
-- **Cities**: Delhi, Mumbai, Jaipur, Pune, Chennai, Kolkata, etc.
-
-## Language Support
-
-The application supports:
-- **English**: Default language
-- **Hindi**: Complete UI translation and AI responses in Hindi
-
-Language preference is stored in browser localStorage.
+---
 
 ## Troubleshooting
+- Ensure Python, Selenium, BeautifulSoup, and ChromeDriver are installed and accessible.
+- If you see `No Price Data Available`, try different crop/state combinations or check the Agmarknet portal for data availability.
+- For ChromeDriver issues, ensure the version matches your installed Chrome browser.
 
-### Ollama Connection Issues
-- Ensure Ollama is running: `ollama serve`
-- Check if model is installed: `ollama list`
-- Verify API endpoint: `curl http://localhost:11434/api/generate -d '{"model":"llama3","prompt":"test"}'`
-
-### Port Conflicts
-- If port 5000 is in use, change it in `server/index.ts`
-- Update the port in any API calls accordingly
-
-### Database Connection
-- Ensure PostgreSQL is running
-- Check DATABASE_URL in .env file
-- Run migrations if tables don't exist
-
-## Development Tips
-
-- Use `npm run dev` for hot-reload development
-- API responses include proper error messages
-- Check browser console for frontend errors
-- Check terminal for backend errors
-- Language translations are in `client/src/lib/translations.ts`
+---
 
 ## Contributing
+Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+---
 
 ## License
-
-This project is open source and available under the MIT License.
+MIT

@@ -1,0 +1,6 @@
+AgriIntel AI Assistant – Full Stack Web Application
+
+• Designed and developed a comprehensive AI-powered assistant for Indian farmers, integrating real-time crop advisory, live market prices, and weather-based recommendations into a seamless web experience using Node.js, TypeScript, and React.
+• Engineered a robust, scalable backend with Node.js and Express, implementing RESTful APIs for efficient data handling and integration with external agricultural data sources.
+• Implemented advanced natural language processing and multilingual support, enabling users to interact with the chatbot in English, Hindi, and regional languages for personalized, actionable farming guidance.
+• Led end-to-end architecture, CI/CD automation, and GitHub-based deployment to ensure rural usability and real-world impact, delivering a production-ready solution that empowers thousands of users with data-driven agricultural insights and 24/7 AI support.

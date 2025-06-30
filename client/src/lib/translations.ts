@@ -66,6 +66,7 @@ export interface Translations {
     seasonalCrops: string;
     errorTitle: string;
     errorMessage: string;
+    disclaimer: string;
   };
   
   // Market
@@ -197,7 +198,8 @@ export const translations: Record<Language, Translations> = {
       cropDisease: "Crop disease",
       seasonalCrops: "Seasonal crops",
       errorTitle: "Error",
-      errorMessage: "Failed to get response from AI assistant. Please try again."
+      errorMessage: "Failed to get response from AI assistant. Please try again.",
+      disclaimer: "This chatbot provides general agricultural advice and should not replace professional consultation.",
     },
     market: {
       title: "Live Market Prices",
@@ -321,7 +323,8 @@ export const translations: Record<Language, Translations> = {
       cropDisease: "फसल रोग",
       seasonalCrops: "मौसमी फसलें",
       errorTitle: "त्रुटि",
-      errorMessage: "AI सहायक से प्रतिक्रिया प्राप्त करने में विफल। कृपया पुनः प्रयास करें।"
+      errorMessage: "AI सहायक से प्रतिक्रिया प्राप्त करने में विफल। कृपया पुनः प्रयास करें।",
+      disclaimer: "यह चैटबॉट सामान्य कृषि सलाह प्रदान करता है और पेशेवर परामर्श का विकल्प नहीं है।",
     },
     market: {
       title: "लाइव बाज़ार की कीमतें",
