@@ -1,7 +1,6 @@
 # AgriIntel - AI Assistant for Indian Farmers
 
-![AgriIntel Chatbot UI](attached_assets/agriintel_chatbot_screenshot.png)
-![AgriIntel Market Prices UI](attached_assets/agriintel_market_screenshot.png)
+![Image](https://github.com/user-attachments/assets/57210600-ae56-46a7-a2a3-3824a237c9c9)
 
 A full-stack web application that empowers Indian farmers with AI-powered agricultural advice, live mandi prices, and weather-based recommendations. The app uses a local LLM (Ollama Llama 3), live web scraping from Agmarknet, and OpenWeatherMap for real-time data.
 
@@ -20,10 +19,16 @@ A full-stack web application that empowers Indian farmers with AI-powered agricu
 ## Screenshots
 
 ### Chatbot UI
-![Chatbot Screenshot](attached_assets/agriintel_chatbot_screenshot.png)
+![Image](https://github.com/user-attachments/assets/9aae4a94-8660-4069-9108-4e3ddee54971)
 
 ### Market Prices UI
-![Market Prices Screenshot](attached_assets/agriintel_market_screenshot.png)
+![Image](https://github.com/user-attachments/assets/eb19f3c1-fafc-4d75-a3ca-851b63711425)
+
+### Weather UI
+![Image](https://github.com/user-attachments/assets/6dc04e92-bb3a-40eb-b68e-8cea46c9f6ef)
+
+### Hindi Interface
+![Image](https://github.com/user-attachments/assets/7a1aade4-3ccd-4396-bd6c-e6b222641ef5)
 
 ---
 
